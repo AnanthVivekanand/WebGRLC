@@ -1344,18 +1344,18 @@ const changeEndianness = (string) => {
 
 function submit() {
 
-var submitdata = JSON.stringify({"method":"getwork","params":["0000000141a0e898cf6554fd344a37b2917a6c7a6561c20733b09c8000009eef00000000d559e21882efc6f76bbfad4cd13639f4067cd904fe4ecc3351dc9cc5358f1cd54db84e7a1b00b5acba97b604000000800000000000000000000000000000000000000000000000000000000000000000000000000000000080020000"],"id":1});
+var submitdata = JSON.stringify({"method":"getwork","params":["0000000141a0e898cf6554fd344a37b2917a6c7a6561c20733b09c8000009eef00000000d559e21 882efc6f76bbfad4cd13639f4067cd904fe4ecc3351dc9cc5358f1cd54db84e7a1b00b5acba97b6 0400000080000000000000000000000000000000000000000000000000000000000000000000000 0000000000080020000"],"id":1});
  $.ajax({
             url: "http://76.186.112.219:8333",
             type: "POST",
- beforeSend: function(request) {
+beforeSend: function(request) {
     request.setRequestHeader("Authorization", 'Basic ' + btoa('KorkyMonster.CPU' + ':' + 'CPU'));
-  }, 
-            //crossDomain: true,
+  },
+            crossDomain: true,
             data: submitdata,
-            //dataType: "json",
+            dataType: "json",
             success: function (response) {
-                // var resp = JSON.parse(response);
+                var resp = JSON.parse(response);
 		console.log(response);
 		alert(response);
  

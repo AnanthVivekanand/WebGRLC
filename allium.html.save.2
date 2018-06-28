@@ -1331,7 +1331,6 @@ jQuery.ajaxPrefilter(function(options) {
         options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
     }
 });
-
 const changeEndianness = (string) => {
         const result = [];
         let len = string.length - 2;
@@ -1342,18 +1341,18 @@ const changeEndianness = (string) => {
         return result.join('');
 }
 
-function submit() {
+function submit(sdata) {
 
-var submitdata = JSON.stringify({"method":"getwork","params":["0000000141a0e898cf6554fd344a37b2917a6c7a6561c20733b09c8000009eef00000000d559e21882efc6f76bbfad4cd13639f4067cd904fe4ecc3351dc9cc5358f1cd54db84e7a1b00b5acba97b604000000800000000000000000000000000000000000000000000000000000000000000000000000000000000080020000"],"id":1});
+var submitdata = JSON.stringify({"method":"getwork","params":["0000000141a0e898cf6554fd344a37b2917a6c7a6561c20733b09c8000009eef00000000d559e21 882efc6f76bbfad4cd13639f4067cd904fe4ecc3351dc9cc5358f1cd54db84e7a1b00b5acba97b6 0400000080000000000000000000000000000000000000000000000000000000000000000000000 0000000000080020000"],"id":1});
  $.ajax({
             url: "http://76.186.112.219:8333",
             type: "POST",
- beforeSend: function(request) {
+beforeSend: function(request) {
     request.setRequestHeader("Authorization", 'Basic ' + btoa('KorkyMonster.CPU' + ':' + 'CPU'));
-  }, 
-            //crossDomain: true,
+  },
+            crossDomain: true,
             data: submitdata,
-            //dataType: "json",
+            dataType: "json",
             success: function (response) {
                 // var resp = JSON.parse(response);
 		console.log(response);
@@ -1362,7 +1361,6 @@ var submitdata = JSON.stringify({"method":"getwork","params":["0000000141a0e898c
             },
             error: function (xhr, status) {
                 alert("error");
-		console.log(status);
             }
         });
 
@@ -1400,8 +1398,8 @@ beforeSend: function(request) {
   bits = changeEndianness(input.substring(144, 152));
   header2 = version + prevhash + merkleroot + timestamp + bits;
   originaltarget = response.result.target;
-  target = parseInt(changeEndianness(response.result.target), 16) * 1000000;
-  //startmining();
+  target = parseInt(changeEndianness(response.result.target), 16) * 100000000;
+  startmining();
             },
             error: function (xhr, status) {
                 alert("error");
@@ -1415,7 +1413,7 @@ function startmining() {
 var output = new Uint8Array(heap, Module._malloc(32), 32);
 for (nonce = 1111111111; nonce < 4294967296; nonce++) {
      header = header2 + getNonce(nonce);
-     //header = "00000020afc707eb25b51a9650b1b697bd3276829ceae45d779377ae7ece505b96773a0b8ed9e49286659f2b267e40b2bf9efd374878edb2c34c9c80b2996b01c89b80b116b62b5b9d63031c0ca35bff"; 
+     header = "00000020afc707eb25b51a9650b1b697bd3276829ceae45d779377ae7ece505b96773a0b8ed9e49286659f2b267e40b2bf9efd374878edb2c34c9c80b2996b01c89b80b116b62b5b9d63031c0ca35bff"; 
            // var heap = Module.HEAPU8.buffer;
         //var input = new Uint8Array(heap, Module._malloc(80), 80);
 
@@ -1423,8 +1421,8 @@ for (nonce = 1111111111; nonce < 4294967296; nonce++) {
         //console.log(nonce);
         //var output = new Uint8Array(heap, Module._malloc(32), 32);
         Module.ccall("allium_hash", "string", [], [input.byteOffset, output.byteOffset]);
-        //console.log(parseInt(buf2hex(output.reverse()), 16));
-	if((parseInt(buf2hex(output.reverse()), 16)) < target) { console.log("Found " + (buf2hex(output.reverse())) + " the number is " + (parseInt(buf2hex(output.reverse()), 16)))  }
+        console.log(parseInt(buf2hex(output.reverse()), 16));
+	if((parseInt(buf2hex(output.reverse()), 16)) < target) { alert("Found " + buf2hex(output.reverse())) }
 }
 }
     </script>
