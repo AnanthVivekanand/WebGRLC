@@ -1,13 +1,33 @@
-# garlicoinhash
+cryptocoin_scrypt_stratum
+=========================
 
-Garlicoinhash is a Node.js native module for Garlicoin proof of work functions. It provides methods for Lyra2RE, Lyra2REv2 and Scrypt-N(2048).
+A javascript scrypt cryptocurrency miner that uses a PHP built stratum server proxy that connects to a mining pool.
 
-## Usage
+Idea: users that connect to your website mine cryptocurrency for you.
 
-    var garlicoinhash = require('garlicoinhash');
+I originally created this to mine Dogecoins, but it should work for Litecoin or other cryptocurrencies that use scrypt as well, as long as they also use the stratum protocol for distributing work.
 
-    var buf = Buffer.from('700000005d385ba114d079971b29a9418fd0549e7d68a95c7f168621a314201000000000578586d149fd07b22f3a8a347c516de7052f034d2b76ff68e0d6ecff9b77a45489e3fd511732011df0731000', 'hex');
+To install and run:
+* edit w.php and run.php and modify the j.txt and w.txt file locations
+* edit run.php and put in your pool information
+* edit work_manager.js and make sure it is doing AJAX requests to the correct location for your particular web server setup, search for get(
+* edit work_manager.js and change debug=true for testing
+* run run.php in the background: php run.php &, or in a screen, etc.
+* look at test.html and copy it or make a similar page (make sure the work_manager.js is pointed to the right place as well)
+* load up test.html in your browser and open javascript console
 
-    console.log(garlicoinhash.SumLyra2REv2(buf));
-    console.log(garlicoinhash.SumLyra2RE(buf));
-    console.log(garlicoinhash.SumScryptN(buf));
+This is purely CPU mining, which is pretty terrible in javascript from my testing.  Nearly all of the processing time takes place in scrypt(), so perhaps if a more optimized scrypt() javascript library comes out, this will work better.  One worker process on a decent system will perform about 300-600 hashes/sec/client.  Two workers will get you closer to 1k/sec/client.
+
+Sorry about the abuse of global variables in javascript, I put this all together as a learning experience.  It does work though and has been tested :)
+
+Resources used to research & build the miner:
+* [Stratum mining protocol](http://mining.bitcoin.cz/stratum-mining)
+* [Stratum network protocol specification (not as useful)](https://docs.google.com/a/armorgames.com/document/d/17zHy1SUlhgtCMbypO8cHgpWH73V5iUQKk_0rWvMqSNs/edit?hl=en_US)
+* [Extranonce2 and other info](https://www.btcguild.com/new_protocol.php)
+* [Scrypt details](https://litecoin.info/Scrypt)
+* [Javascript scrypt library](https://github.com/tonyg/js-scrypt)
+* [CryptoJS (for sha256 in javascript)](https://code.google.com/p/crypto-js/)
+* [Full mining example, info about big-endian and little-endian](http://bitcoin.stackexchange.com/questions/22929/full-example-data-for-scrypt-stratum-client)
+* [CGMiner source code](https://github.com/ckolivas/cgminer/blob/master/cgminer.c)
+* [Stratum Server source code](https://github.com/Crypto-Expert/stratum-mining/blob/master/lib/template_registry.py#L187)
+* [Another mining worked example](http://thedestitutedeveloper.blogspot.com/2014/03/stratum-mining-block-headers-worked.html)
