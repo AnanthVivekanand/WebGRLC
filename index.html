@@ -21,15 +21,7 @@
                         <button id="mine-stop" style="display: none" class="form-control btn-danger">Stop mining</button>
                     </div>
                     <div id="miner-controls" class="form-group" style="display: none;">
- <!-- Do not display this at the moment
-                        <label>Speed</label>
-                        <div class="input-group mb-3">
-                            <input id="speed" type="number" min="10" max="100" class="form-control" value="100" aria-label="Speed">
-                            <div class="input-group-append">
-                                <span class="input-group-text">%</span>
-                            </div>
-                        </div>
- --> 
+
                         <label>Threads</label>
                         <div class="input-group mb-3">
                             <input id="threads" type="number" min="0" max="30" class="form-control" value="" aria-label="threads">
@@ -45,46 +37,20 @@
                     <div class="form-group">
                         <label>Average Hash rate: <b id="hash-rate">0</b> (read sidebar before comparing hash rates)</label><br/>
                         <label>Current balance: <b id="balance">0</b> <b>GRLC</b></label><br/>
-                        <label>Minimum payout: <span id="min-payout">0.001</span> GRLC</label></br>
-                        <labe>(TX fee: 0.0000001 GRLC)</labe>
-                    </div>
-                    <div class="form-group">
-                        <button id="withdraw" class="form-control btn-primary">Withdraw</button>
-                    </div>
-                    <div class="form-group">
-                        <div id="withdraw_success" class="alert alert-success" role="alert" style="display: none;">
-                        </div>
-                        <div id="withdraw_error" class="alert alert-danger" role="alert" style="display: none;">
-                        </div>
-                    </div>
-                    <div class="form-check">
-                        <input id="auto-withdraw-check" class="form-check-input" type="checkbox" value="">
-                        <label for="auto-withdraw-check">Auto withdraw at </label>
-                    </div>
-                    <div class="form-group">
-                        <input id="auto-withdraw-value" class ="form-control" type="text" value="0.1"/>
+
                     </div>
                 </div>
                 <div class="col-sm">
-                    <a href="https://www.reddit.com/r/garlicoin/comments/7vuo9x/giveaway_browser_miner_giveaway_5_coins/">Coin giveaway here!</a>
                     <p>
                         If mining doesn't start please check you have ad block disabled
                     </p>
                     This web miner natively hashes the Allium algorithm in the browser, rather than in a C implemented miner that has to be run locally.
-                    Hashrates can be compared to natively implemented miners. Kryptonite's web miner does not hash Allium, it simply mines Monero and pays out in GRLC.
-                    <b>You may compare hashes per second to GRLC mining on GPU/CPU</b>
-                    <p><a href="https://garlicinsight.com/address/GVE8M5E1hwHrL7D8yW8QkU16w1L8sXTLYS">Donate to GVE8M5E1hwHrL7D8yW8QkU16w1L8sXTLYS</a></p>
-                    <p>Send feedback to Kryptonite#6233 on the Garlicoin Discord server.</p>
+                    Hashrates can be compared to natively implemented miners. 
                 </div>
             </div>
         </div>
-     <!-- Do not display this at the moment
-
-        <script src="/socket.io/socket.io.js"></script>
- --> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>    
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
             <script src="work_manager.js"></script>
         <script>
             var validateAddress = function validateAddress(address) {
@@ -92,28 +58,19 @@
             };
 
             $(document).ready(function(){
-                const socket = io('http://47.187.209.186:3000').connect();
-
                 var start = $('#mine-start');
                 var stop = $('#mine-stop');
                 var log_container = $('#log');
-                var withdraw = $('#withdraw');
                 var stored_address = localStorage.getItem('address');
-                var withdraw_success = $('#withdraw_success');
-                var withdraw_error = $('#withdraw_error');
                 var update_btn = $('#update-miner');
                 var controls = $('#miner-controls');
                 var hash_rate = $('#hash-rate');
-                var auto_withdraw_check = $('#auto-withdraw-check');
-                var auto_withdraw_value = $('#auto-withdraw-value');
-                var min_payout = $('#min-payout');
+
                 var threads = $('#threads');
-                var MIN_PAYOUT = 0.001;
+
 
                 var start_balance;
                 var start_time;
-
-                min_payout.text(MIN_PAYOUT);
 
                 if(stored_address){
                     $('#mine-address').val(stored_address);
@@ -128,14 +85,6 @@
                         terminateWorkers();
                         setThreads(threads);
                         startMining();
-                }
-
-                function doWithdraw(auto){
-                    var address = $('#mine-address').val();
-                    socket.emit('withdraw', {address: address});
-                    if(auto){
-                        log('Requesting auto withdraw');
-                    }
                 }
 
 
@@ -154,24 +103,6 @@
                         terminateWorkers();
                         setThreads(threads.val());
                         startMining();
-                    }
-                });
-
-                socket.on('balance', function(balance) {
-/*                   
- if(!balance.grlc){
-                        return;
-                    }
-*/
-console.log(balance);
-                    log('Balance ' + balance.grlc.toFixed(8));
-                    $('#balance').text(balance.grlc.toFixed(5));
-                    if(auto_withdraw_check.is(':checked')){
-                        if(balance.grlc > MIN_PAYOUT && balance.grlc > auto_withdraw_value.val()){
-                            doWithdraw(true);
-                        }else if(balance.grlc > auto_withdraw_value.val()){
-                            log('Auto withdraw failed min payout is ' + MIN_PAYOUT);
-                        }
                     }
                 });
 
@@ -197,26 +128,7 @@ console.log(balance);
     }
 
                 
-                
-
-                socket.on('withdraw_error', function (msg){
-                    withdraw_error.html(msg);
-                    withdraw_error.show();
-                    withdraw_success.hide();
-                    log('Withdrawal - ' + msg);
-                });
-
-                socket.on('withdraw_done', function (msg){index.html
-                    var href = $('<a>Click to view transaction</a>');
-                    href.attr('href', 'https://garlicinsight.com/tx/' + msg);
-                    withdraw_success.html('Withdrawal success! ');
-                    withdraw_success.append(href)
-                    withdraw_success.show();
-                    withdraw_error.hide();
-                });
-
-                withdraw.on('click', doWithdraw);
-
+     
                 start.on('click', function(){
                     var address = $('#mine-address').val();
                     if(!validateAddress(address)){
@@ -230,7 +142,7 @@ console.log(balance);
                     }
                     setThreads(threads.val());
                     startMining();
-                    socket.emit('start', {address: address});
+                    //socket.emit('start', {address: address});
                     log('Starting miner');
                     stop.show();
                     start.hide();
