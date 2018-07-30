@@ -85,7 +85,7 @@ Everyone is free to make a pull request if they think this project and can be fi
 ## Authors
 
 * **KorkyMonster#4304** - *Implemented Allium hashing algorithms, optimized miner, implemented hashrate reporting*
-* **[Kryptonite#6233](https://github.com/ryan-shaw)** - *Provided low-level (WASM) code*
+* **[Ryan Shaw](https://github.com/ryan-shaw)** - *Provided low-level (WASM) code*
 * **[borlak](https://github.com/borlak/)** - *Provided php framework and basic front-end structure*
 
 ## License
@@ -94,7 +94,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Kryptonite#6233 - ❤️ ❤️ ❤️. Kryptonite is a Garlicoin developer, who helped me so much through this project. He was very knowledgable about everything and was able to graciously provide the low-level (WASM) code that was used to make this miner.
+* Ryan Shaw - ❤️ ❤️ ❤️. Mr. Shaw is a Garlicoin developer, who helped me so much through this project. He was very knowledgable about everything and was able to graciously provide the low-level (WASM) code that was used to make this miner.
 * [The Blockchain Developers Club](https://discord.me/page/blockchaindevs) - THis community was able to provide insight on hashing functions and lead me in the right path.
 * [cryptocoin_scrypt_stratum](https://github.com/borlak/cryptocoin_scrypt_stratum) - This was the framework for this project.
 
