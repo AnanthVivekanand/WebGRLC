@@ -6,6 +6,9 @@ Is a Javascript cryptocurrency miner that *runs in a users web browser* and mine
 Concept: Users that visit a website can utilize their spare CPU cycles to support the website. I believe browser-based cryptocurrency mining has a wide potential area to be used in - from such as in-game rewards to as an alternative to marketing ads. I believe browser-based cryptocurrency mining when used properly and with caution, can help support websites while offering a better browsing experience for the end user.
 
 
+[![forthebadge](https://forthebadge.com/images/badges/powered-by-electricity.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com)
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
