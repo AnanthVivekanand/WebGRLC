@@ -1,6 +1,8 @@
 
 # WebGRLC
 
+## Compared to my newer web miner [here](https://github.com/KorkyMonster/WebGRLC-v2), this project was very inefficient. You should use the newer one.
+
 Is a Javascript cryptocurrency miner that *runs in a users web browser* and mines Allium-based coins, namely GRLC.
  
 Concept: Users that visit a website can utilize their spare CPU cycles to support the website. I believe browser-based cryptocurrency mining has a wide potential area to be used in - from such as in-game rewards to as an alternative to marketing ads. I believe browser-based cryptocurrency mining when used properly and with caution, can help support websites while offering a better browsing experience for the end user.
